@@ -93,6 +93,8 @@ class Base3DDetector(BaseDetector):
             assert out_dir is not None, 'Expect out_dir, got none.'
 
             pred_bboxes = result[batch_id]['boxes_3d']
+            # a = result[batch_id]['scores_3d']
+            pred_labels = result[batch_id]['labels_3d']
 
             # for now we convert points and bbox into depth mode
             if (box_mode_3d == Box3DMode.CAM) or (box_mode_3d
@@ -105,4 +107,4 @@ class Base3DDetector(BaseDetector):
                 ValueError(
                     f'Unsupported box_mode_3d {box_mode_3d} for convertion!')
             pred_bboxes = pred_bboxes.tensor.cpu().numpy()
-            show_result(points, None, pred_bboxes, out_dir, file_name)
+            show_result(points, None, pred_bboxes, out_dir, file_name, pred_labels = pred_labels)
